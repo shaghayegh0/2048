@@ -54,7 +54,7 @@ public class Game {
         // Handle the direction input
         switch (direction) {
             case "u":
-            // numbers have to go "direction" if above is * until they hit another number or end of table
+            // numbers have to go "up" if above is * until they hit another number or end of table
             // in row1 and row2 , if columns are the same then add and put in row1
             // in row2 and row3 , if columns are the same then add and put in row2
             // in row3 and row4 , if columns are the same then add and put in row3
@@ -78,7 +78,6 @@ public class Game {
                                         i = i - 1;
                                         j = j - 1 ;
                                     }
-
                             }
 
                             // if above is equal to num (not *)
@@ -114,20 +113,70 @@ public class Game {
                         break;
                     }
                 }
-                
-                
+              
                 printTable(table);
                 break;
                 
-
-        
-
             case "d":
-            // numbers have to go "direction" if below is * until they hit another number or end of table
-            // in row4 and row3 , if columns are the same then add and put in row4
-            // in row3 and row2 , if columns are the same then add and put in row3
-            // in row2 and row1 , if columns are the same then add and put in row2
+            // numbers have to go "down" if below is * until they hit another number or end of table
+    
                 System.out.println("moving down");
+                for (int i = 2 ; i > -1 ; i-- ){
+                    for (int j = 3 ; j > -1 ; j--){
+                        System.out.println("i: " + Integer.toString(i) + " j: " + Integer.toString(j));
+
+                        // if it is a number
+                        if (!"*".equals(table.get(i).get(j)) ) {
+                            String num = table.get(i).get(j);
+                            String u = table.get(i+1).get(j);
+
+                            // if below is star
+                            if ("*".equals(u)) {
+                                    table.get(i+1).set(j , num);
+                                    table.get(i).set(j , "*");
+                                    printTable(table);
+                                    if (i < 2 ) {
+                                        i = i + 1;
+                                        j = j + 1 ;
+                                    }
+                            }
+
+                            // if below is equal to num (not *)
+                            if (!"*".equals(u) && num.equals(u)) {
+                                // string "2" to int --> int 2 to string again to put in table
+                                table.get(i+1).set(j , Integer.toString(Integer.parseInt(num)*2));
+                                table.get(i).set(j , "*");
+
+                                printTable(table);
+                                if (i < 2 ) {
+                                        i = i + 1;
+                                        j = j + 1;
+                                        break;  
+                                    }
+                            }
+
+                            // if below is number but not equal
+                            if (!"*".equals(u) && !num.equals(u)) {
+                            }
+                        }
+                    }
+                }
+
+                while (true) { 
+                    // add a new 2 to table
+                    Random rand = new Random();
+                    int randomNumber1 = rand.nextInt(4);
+                    int randomNumber2 = rand.nextInt(4);
+
+                    // if that cell is empty
+                    if (table.get(randomNumber1).get(randomNumber2).equals("*")){
+                        table.get(randomNumber1).set(randomNumber2 , "2");
+                        break;
+                    }
+                }
+                
+                
+                printTable(table);
                 break;
 
             case "r":
