@@ -12,6 +12,8 @@ public class Game {
             }
             System.out.println();
         }
+        System.out.println("---------------");
+
     }
 
     public static void main(String[] args) {
@@ -74,7 +76,7 @@ public class Game {
                                     printTable(table);
                                     if (i > 1 ) {
                                         i = i - 1;
-                                        break;
+                                        j = j - 1 ;
                                     }
 
                             }
